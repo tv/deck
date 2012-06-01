@@ -60,10 +60,12 @@ funcs.setDeckCardStyles = function (elm) {
     var count = deck.length;
 
     var transition = ' 0.2s ease-in';
-    var transform  = 'translate3d('+x+'px, '+y+'px, '+(i*8)+'px)'+
-                     'scale3d(0.8, 0.8, 0.8)'+
-                     'rotateY(180deg)'+
-                     'rotateZ('+rot.toString()+'deg)';
+    var transform  = [
+        'translate3d('+x+'px, '+y+'px, '+(i*8)+'px)'
+      , 'scale3d(0.8, 0.8, 0.8)'
+      , 'rotateY(180deg)'
+      , 'rotateZ('+rot.toString()+'deg)'
+    ].join(" ");
 
     var style = {
         '-webkit-transition' : '-webkit-transform '+transition

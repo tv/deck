@@ -9,7 +9,8 @@ var funcs = {
         .addClass('back');
     },
     'animateDrawCard': function(elm){
-        var count = decks['pakka'].length - deck.length;
+        var selected = 'pakka';
+        var count = decks[selected].length - deck.length;
         elm.css({'position': 'absolute', 'left': '400px', 'z-index': count}).removeClass('back');
         return;
     },
@@ -24,30 +25,31 @@ var decks = {'pakka': ["heart A", "heart 2", "heart 3", "heart 4", "heart 5", "h
             'pakka2': ["heart A", "club A", 'diam A', 'spade A']};
 
 function generateNewDeck() {
-    deck = new Array();
-    for (var i = 0; i < decks['pakka'].length; i++) {
-        deck.push(decks['pakka'][i]);
-    };
-    deck.sort(function() {return 0.5 - Math.random()})
+    deck = [];
+    var selected = 'pakka';
+    for (var i = 0; i < decks[selected].length; i++) {
+        deck.push(decks[selected][i]);
+    }
+    deck.sort(function() {
+        return 0.5 - Math.random();
+    });
     saveDeck();
     updateCount();
 }
 
 function drawDeck () {
-    $('#deck > div.card').empty()
+    $('#deck > div.card').empty();
 
     for (var i = 0; i < deck.length; i++) {
-        if ($('#deck > div.card').eq(i).length == 0) {
+        if ($('#deck > div.card').eq(i).length === 0) {
             elm = $('<div></div>');
             $('#deck').append(elm);
             funcs.setDeckCardStyles(elm);
         } else {
-            elm = $('#deck > div.card').eq(i)
+            elm = $('#deck > div.card').eq(i);
             funcs.setDeckCardStyles(elm);
         }
-
-
-    };
+    }
 }
 
 function drawNextCard() {
@@ -55,7 +57,7 @@ function drawNextCard() {
         return;
     }
 
-    if (deck.length == 0) {
+    if (deck.length === 0) {
         funcs.shuffleCards();
     }
 
@@ -72,6 +74,7 @@ function drawNextCard() {
         col = 'black';
     }
 
+    c.addClass(a.join('-'));
     c.append(
             $('<div></div>')
                 .addClass('upperCorner')
@@ -129,11 +132,12 @@ function saveDeck () {
 }
 
 function updateCount () {
-    $('#count').text(deck.length+" / "+decks['pakka'].length);
+    var selected = 'pakka';
+    $('#count').text(deck.length+" / "+decks[selected].length);
 }
 
 function initDeck () {
-    if(localStorage.getItem("deck") == null || localStorage.getItem("deck") == undefined) {
+    if(!localStorage.getItem("deck")) {
         localStorage.removeItem("deck");
         generateNewDeck();
 
@@ -141,7 +145,7 @@ function initDeck () {
         try {
             deck = JSON.parse(localStorage.getItem("deck"));
         } catch (err) {
-            localStorage.removeItem("deck")
+            localStorage.removeItem("deck");
             generateNewDeck();
         }
     }
@@ -163,12 +167,10 @@ $(document).ready(function() {
     if (Modernizr.csstransforms3d || navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
     //if (Modernizr.csstransforms3d) {
         console.log('Has 3d transforms');
-        $('head')
-            .append(
-                $('<link />')
-                    .attr({'rel': 'stylesheet', 'href': './css/webkit3d.css', 
-                           'type': 'text/css', 'media': 'screen', 'charset': 'utf-8'})
-            )
+        $('head').append(
+            $('<link />')
+                .attr({'rel': 'stylesheet', 'href': './css/webkit3d.css'})
+        );
         console.log('tries to load');
         $.getScript('./js/webkit3d.js', function() {
             console.log('load!');
