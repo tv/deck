@@ -71,7 +71,7 @@ function drawNextCard() {
     if (a[0] == 'spade' || a[0] == 'club') {
         col = 'black';
     }
-    
+
     c.append(
             $('<div></div>')
                 .addClass('upperCorner')
