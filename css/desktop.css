@@ -1,0 +1,65 @@
+body {
+    width:100%;
+    margin:0;
+}
+
+#deck {
+    width: 300px;
+    position:relative;
+    margin:auto;
+}
+
+.card {
+    margin-top: 50px;
+    width: 200px;
+    height: 300px;
+    top: 20px;
+    position: absolute;
+    border: 1px solid black;
+    
+    border-radius: 15px;
+    box-shadow: 3px 3px 5px #888;
+    
+    -moz-box-shadow: 3px 3px 5px #888;
+    -moz-border-radius: 10px;
+    -webkit-box-shadow: 3px 3px 5px #888;
+    -webkit-border-radius: 10px;
+    
+    background: white;            
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
+}
+
+.upperCorner,
+.lowerCorner {
+    width: 30px;
+    margin: 10px;
+}
+div.upperCorner div.number,
+div.upperCorner div.suit,
+div.lowerCorner div.number,
+div.lowerCorner div.suit{
+    text-align: center;
+    font-size: 2.2em;
+}
+.upperCorner {
+    position: relative;
+    top:0;
+    left:0;
+}
+.lowerCorner {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    position: absolute;
+    bottom:0;
+    right:0;
+}
+.inner {
+    border: 1px solid black;
+    height: 240px;
+    width: 140px;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+}

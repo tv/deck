@@ -1,0 +1,51 @@
+@-webkit-keyframes turn {
+    0% {}
+    100% {
+        -webkit-transform: 
+            translate3d(100px, 2px, 688px)
+            scale3d(1, 1, 1)
+            rotateY(0deg)
+            rotateX(0deg)
+            rotateZ(0deg);
+    }
+}
+
+@-webkit-keyframes move {
+    0% {
+        -webkit-transform: 
+            translate3d(100px, 2px, 688px)
+            scale3d(1, 1, 1)
+            rotateX(0deg)
+            rotateZ(0deg)
+            rotateY(0deg);
+    }
+    100% {}
+}
+
+        
+.card.animate {
+    -webkit-animation-name: turn;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-direction: alternate;
+}
+.card.animate2 {
+    -webkit-animation-name: move;
+    -webkit-animation-duration: 0.3s;
+    -webkit-animation-direction: alternate;
+}
+
+.card.back > div {
+    transition: all .4s ease-in-out;
+    display:none;
+}
+
+.card > div{
+    display:block;
+    
+}
+
+#deck {
+    -webkit-perspective: 3250px;
+    -webkit-perspective-origin: 50% 50%;
+    -webkit-user-select: none;
+}
