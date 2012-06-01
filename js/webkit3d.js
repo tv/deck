@@ -72,7 +72,7 @@ funcs.setDeckCardStyles = function (elm) {
       , '-moz-transform'     : transform
       , transition           : 'transform '+transition
       , transform            : transform
-      , 'z-index': i
+      , 'z-index': 2
     };
 
     elm.removeClass()
@@ -90,6 +90,7 @@ funcs.animateDrawCard = function (c) {
       , z   = count*8;
 
 
+    pause = true;
     var transform = [
         'translate3d(' + x + 'px, ' + y + 'px, ' + z + 'px)'
       , 'scale3d(0.8, 0.8, 0.8)'
@@ -104,35 +105,21 @@ funcs.animateDrawCard = function (c) {
       , 'z-index': count
     };
 
-    setTimeout(function() {
-
-        c.addClass('animate');
-
-        setTimeout(function() {
-            c.removeClass('back');
-            setTimeout(function() {
-                c.css(style).addClass('animate2');
-                c.removeClass('animate', 'animate2');
-            }, 200);
-        }, 100);
-
-    }, 1);
+    c.addClass('animate')
+        .delay(100)
+        .queue(function(next) {
+            $(this).removeClass('back');
+            next();
+        })
+        .delay(200)
+        .queue(function(next) {
+            $(this).css(style).addClass('animate2');
+            pause = false;
+            next();
+        })
+        .delay(100)
+        .queue(function(next) {
+            $(this).removeClass('animate animate2');
+            next();
+        });
 };
-
-/*
-function animateDrawCard2d (c) {
-    var rot = Math.floor(Math.random()*90)-45;
-    var x   = Math.floor(Math.random()*50)+300;
-    var y   = Math.floor(Math.random()*50);
-
-    var style  = '-webkit-transform:rotate('+rot.toString()+'deg);'+
-                    '-moz-transform:rotate('+rot.toString()+'deg);'+
-                               'top:'+y+'px;'+
-                              'left:'+x+'px;'+
-                           'display:none';
-    c.addClass('style')
-        .animate({
-            right: '200px'
-        }, 400)
-        .removeClass('back', 200); 
-}*/
